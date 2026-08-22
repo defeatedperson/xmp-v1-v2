@@ -1,0 +1,261 @@
+@import './page-title.css';
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.log-page {
+  padding: 10px 15px;
+  animation: fadeInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.node-info {
+  margin-top: 10px;
+  padding: 15px;
+  background-color: #1f2937;
+  border-radius: 6px;
+  border: 1px solid #4b5563;
+}
+
+.node-info p {
+  margin: 5px 0;
+  color: #d1d5db;
+}
+
+/* 节点日志容器样式 */
+.node-log-container {
+  margin-top: 12px;
+}
+
+.log-notice {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #94a3b8;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.notice-icon {
+  margin-right: 8px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.log-table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* iOS Safari 滚动弹性 */
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid #3c3c46; /* 使用更明显的边框颜色 */
+  border-radius: 12px;
+  padding: 2px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影效果增强立体感 */
+}
+
+.table-wrapper {
+  min-width: 600px; /* 设置表格最小宽度 */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.log-table th,
+.log-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  color: #e2e8f0;
+}
+
+.log-table th {
+  background: rgba(30, 41, 59, 0.7);
+  color: #e2e8f0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.log-table tbody tr:hover {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+.log-type {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.log-type.type-running {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.log-type.type-error {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.log-type.type-warning {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+.log-type.type-default {
+  background: rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-btn {
+  background: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+}
+
+.view-btn:hover {
+  background: rgba(139, 92, 246, 0.3);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 16px;
+}
+
+.page-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: rgba(30, 41, 59, 0.5);
+  color: #e2e8f0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: #8b5cf6;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.no-data {
+  text-align: center;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.error-message {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 4px;
+  padding: 12px;
+  margin: 15px 0;
+  color: #856404;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.error-message .fa-exclamation-triangle {
+  color: #f39c12;
+  font-size: 16px;
+}
+
+.auto-retry-status {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #856404;
+  font-size: 14px;
+}
+
+.error-actions {
+  margin-left: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.retry-btn,
+.stop-retry-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.retry-btn {
+  background: #3498db;
+  color: white;
+}
+
+.retry-btn:hover {
+  background: #2980b9;
+}
+
+.stop-retry-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.stop-retry-btn:hover {
+  background: #c0392b;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.loading-message .fa-spinner {
+  margin-right: 8px;
+  color: #3498db;
+}

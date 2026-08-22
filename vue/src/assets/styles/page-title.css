@@ -1,0 +1,27 @@
+.page-title {
+  color: #e2e8f0;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  position: relative;
+  padding-left: 12px;
+  align-self: flex-end;
+  margin-bottom: 8px;
+}
+
+.page-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 4px;
+  background: linear-gradient(to bottom, #3b82f6, #06b6d4);
+  border-radius: 2px;
+}
+
+@media (max-width: 1000px) {
+  .page-title {
+    align-self: auto;
+  }
+}

@@ -1,0 +1,357 @@
+/* 公共弹窗样式 - Modal Common Styles (Element Plus Theme) */
+
+/* 弹窗遮罩层 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--el-mask-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+/* 弹窗容器基础样式 */
+.modal-container {
+  background: var(--el-bg-color-overlay);
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: var(--el-border-radius-base);
+  width: 100%;
+  max-width: 420px;
+  margin: 20px;
+  box-shadow: var(--el-box-shadow);
+  backdrop-filter: blur(10px);
+  animation: modalSlideIn 0.3s ease-out;
+  max-height: 90vh; /* 限制最大高度为屏幕高度的 90% */
+  overflow-y: auto; /* 内容超出时显示滚动条 */
+}
+
+/* 大尺寸弹窗容器 */
+.modal-container.large {
+  max-width: 500px;
+}
+
+/* 弹窗动画 */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 弹窗头部 */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 0 24px;
+  margin-bottom: 24px;
+}
+
+/* 设置弹窗头部样式 */
+.modal-header.setup {
+  padding: 20px 24px;
+  margin-bottom: 0;
+}
+
+.modal-header h2,
+.modal-header h3 {
+  margin: 0;
+  color: var(--el-text-color-primary);
+  font-weight: 600;
+}
+
+.modal-header h2 {
+  font-size: 20px;
+}
+
+.modal-header h3 {
+  font-size: 18px;
+}
+
+/* 关闭按钮 */
+.close-button {
+  background: none;
+  border: none;
+  color: var(--el-text-color-secondary);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--el-border-radius-small);
+  transition: all 0.2s ease;
+}
+
+.close-button:hover:not(:disabled) {
+  background: var(--el-fill-color-light);
+  color: var(--el-text-color-primary);
+}
+
+.close-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 弹窗内容区域 */
+.modal-content {
+  padding: 14px;
+}
+
+.modal-body {
+  padding: 0 24px 24px 24px;
+}
+
+/* 错误消息 */
+.error-message {
+  background: var(--el-color-danger-light-9);
+  color: var(--el-color-danger);
+  padding: 12px 16px;
+  border-radius: var(--el-border-radius-base);
+  font-size: 14px;
+  margin-bottom: 20px;
+  border: 1px solid var(--el-color-danger-light-5);
+}
+
+/* 输入框组 */
+.input-group {
+  margin-bottom: 24px;
+}
+
+.input-group label {
+  display: block;
+  color: var(--el-text-color-regular);
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px 15px;
+  background: var(--el-input-bg-color, var(--el-fill-color-blank));
+  border: 1px solid var(--el-input-border-color, var(--el-border-color));
+  border-radius: var(--el-border-radius-base);
+  color: var(--el-input-text-color, var(--el-text-color-regular));
+  font-size: 14px;
+  transition: var(--el-transition-duration-fast);
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--el-color-primary);
+}
+
+.input-group input:disabled {
+  background-color: var(--el-disabled-bg-color);
+  color: var(--el-disabled-text-color);
+  cursor: not-allowed;
+}
+
+/* 特殊输入框样式 */
+.input-group input.code-input {
+  text-align: center;
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+}
+
+.input-group input.large-code {
+  font-size: 18px;
+  width: 200px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* 弹窗底部 */
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  padding: 0 24px 24px 24px;
+  justify-content: flex-end;
+}
+
+/* 按钮基础样式 */
+.btn {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--el-border-radius-base);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+
+/* 取消按钮 */
+.btn-cancel {
+  background: var(--el-button-bg-color, var(--el-bg-color-container));
+  color: var(--el-text-color-regular);
+  border-color: var(--el-border-color);
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background: var(--el-button-hover-bg-color, var(--el-fill-color-light));
+  color: var(--el-color-primary);
+  border-color: var(--el-color-primary-light-7);
+}
+
+/* 主要按钮 */
+.btn-primary {
+  background: var(--el-color-primary);
+  color: var(--el-color-white);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--el-color-primary-light-3);
+  opacity: 0.9;
+}
+
+/* 蓝色按钮 */
+.btn-blue {
+  background: var(--el-color-primary);
+  color: var(--el-color-white);
+}
+
+.btn-blue:hover:not(:disabled) {
+  background: var(--el-color-primary-light-3);
+}
+
+/* 灰色按钮 */
+.btn-gray {
+  background: var(--el-color-info);
+  color: var(--el-color-white);
+}
+
+.btn-gray:hover:not(:disabled) {
+  background: var(--el-color-info-light-3);
+}
+
+/* 绿色按钮 */
+.btn-green {
+  background: var(--el-color-success);
+  color: var(--el-color-white);
+}
+
+.btn-green:hover:not(:disabled) {
+  background: var(--el-color-success-light-3);
+}
+
+/* 禁用状态 */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--el-button-disabled-bg-color);
+  border-color: var(--el-button-disabled-border-color);
+  color: var(--el-button-disabled-text-color);
+}
+
+/* 步骤内容 */
+.step-content {
+  text-align: center;
+}
+
+.step-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--el-text-color-primary);
+  margin-bottom: 8px;
+}
+
+.step-description {
+  font-size: 14px;
+  color: var(--el-text-color-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.step-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* 成功内容 */
+.success-content {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.success-icon {
+  font-size: 48px;
+  color: var(--el-color-success);
+  margin-bottom: 16px;
+}
+
+.success-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--el-text-color-primary);
+  margin-bottom: 8px;
+}
+
+.success-description {
+  font-size: 14px;
+  color: var(--el-text-color-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .modal-container {
+    margin: 10px;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer,
+  .modal-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .step-actions {
+    flex-direction: column;
+  }
+
+  .input-group input.large-code {
+    width: 100%;
+  }
+}
+
+/* Element Plus Loading 样式同步 */
+.modal-body .el-loading-mask {
+  background-color: var(--el-mask-color-extra-light) !important;
+}
+
+.modal-body .el-loading-spinner .circular {
+  stroke: var(--el-color-primary) !important;
+}
+
+.modal-body .el-loading-spinner .el-loading-text {
+  color: var(--el-text-color-regular) !important;
+}
