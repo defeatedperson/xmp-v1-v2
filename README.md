@@ -134,7 +134,7 @@ go build .   # 或 go run main.go
 - `sh/`：按功能拆分的脚本（`node.sh`、`firewall.sh`、`monitor.sh`、`xcc.sh`），可组合执行。
 - `sh2/`：安装 / 卸载 / 更新一体脚本（`install.sh`、`uninstall.sh`、`update.sh`），并为 `monitor/`、`xcc/` 各提供一套。
 
-脚本需以 `root` 运行、仅支持 `x86_64` 架构与 Systemd 系统；会检测环境、生成 `.env`、下载解压被控程序并注册 `xmp` systemd 服务。项目在线文档地址：<https://www.xmpanel.cn/wiki/install/agent>。
+脚本需以 `root` 运行、仅支持 `x86_64` 架构与 Systemd 系统；会检测环境、生成 `.env`、下载解压被控程序并注册 `xmp` systemd 服务。
 
 ---
 
@@ -149,6 +149,6 @@ go build .   # 或 go run main.go
 ## 历史与新版本
 
 - **本仓库** = 星梦面板（XMP）**v1 / v2 旧版**，仅供归档、学习与思路借鉴。
-- **最新版本** = **v3 系列**（星梦面板），全新技术栈（Go + Electron + Vite）开发，官方网站：**https://xmpanel.cn**。
+- **最新版本** = **v3 系列**（星梦面板），全新技术栈（Go + Electron + Vite）开发，官方网站：https://xmpanel.cn
 
 如需了解、下载或使用最新版本，请访问官网或联系作者。当前开源仓库不提供 v3 相关源码。
