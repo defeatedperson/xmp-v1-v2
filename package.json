@@ -1,0 +1,86 @@
+{
+  "name": "xmp-desktop",
+  "version": "2.0.1",
+  "description": "XMP Desktop Application",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder -wml"
+  },
+  "author": {
+    "name": "DP",
+    "email": "dp712@qq.com"
+  },
+  "homepage": "https://xmpanel.cn",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^41.1.0",
+    "electron-builder": "^26.8.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "form-data": "^4.0.4",
+    "http-proxy": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "node-forge": "^1.3.1",
+    "speakeasy": "^2.0.0"
+  },
+  "build": {
+    "appId": "cn.xmpanel.wwww",
+    "productName": "XMP 桌面启动器",
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "icon": "ico/favicon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "icon": "ico/favicon.png",
+      "target": [
+        "deb",
+        "rpm"
+      ],
+      "category": "Utility",
+      "maintainer": "DP <dp712@qq.com>"
+    },
+    "mac": {
+      "icon": "ico/favicon.ico",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "files": [
+      "electron/**/*",
+      "ico/**/*",
+      "package.json",
+      {
+        "from": "api",
+        "to": "api",
+        "filter": [
+          "**/*",
+          "!node_modules",
+          "!package-lock.json",
+          "!data"
+        ]
+      }
+    ],
+    "asar": false
+  }
+}

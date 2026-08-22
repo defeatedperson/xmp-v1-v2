@@ -1,0 +1,80 @@
+星梦面板 / XMP
+==============
+
+Copyright 2026 XMP Authors
+
+Software license
+-----------------
+
+This product includes software developed by XMP Authors.
+
+The code of this repository is licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Trademark notice
+-----------------
+
+The names "星梦面板" and "XMP", their graphical logo(s), and related
+branding elements are original works created by, and remain the exclusive
+property of, the XMP authors. They are actively used by the current/renewed
+product and are NOT licensed for reuse under the Apache License or otherwise.
+
+Unless you receive prior written permission from the copyright owner,
+you may not copy, modify, distribute, use, or re-brand the "星梦面板"/"XMP"
+names or logos in any form, in this repository or in any derivative work.
+
+Third-party notices
+--------------------
+
+This repository bundles or depends on the following third-party
+components. Each is used subject to its own license, which governs its use:
+
+Frontend (vue/)
+- Vue.js ..................................... MIT
+- Vue Router ................................. MIT
+- Pinia ...................................... MIT
+- Element Plus ............................... MIT
+- Chart.js / vue-chartjs ..................... MIT
+- Font Awesome Free (icons, @fortawesome/fontawesome-free) ... SIL OFL 1.1
+- xterm.js / @xterm/xterm .................... MIT
+- qrcode ..................................... MIT
+- Vite / ESLint / Prettier / oxlint (dev) .... MIT
+
+Desktop shell (electron/) & root project
+- Electron ................................... MIT
+- electron-builder (dev) ..................... MIT
+- Express .................................... MIT
+- cookie-parser / http-proxy / form-data ..... MIT
+- jsonwebtoken / speakeasy ................... MIT
+- bcryptjs / node-forge / dotenv ............. MIT/BSD
+
+Agent backend (node/)
+- Express / dockerode / ssh2 / ws / multer ... MIT
+- archiver / tar / extract-zip .............. MIT
+- @aws-sdk (S3) .............................. Apache-2.0
+
+CC protection service (xcc-lite/, Go)
+- modernc.org/sqlite ......................... BSD-3-Clause
+- golang.org/x/sys ........................... BSD-3-Clause
+
+Monitor probe (监控探针/, Go)
+- github.com/shirou/gopsutil/v3 .............. BSD-3-Clause
+- modernc.org/sqlite ......................... BSD-3-Clause
+
+Daemon (守护进程/, Go)
+- Standard library only ...................... Go Authors / BSD
+
+The licenses of all dependencies declared in the various package.json and
+go.mod files take precedence; references above are provided for convenience
+only.
+
+-----------------------------------------------------------------------------
+Apache License, Version 2.0
+Apache License, Version 2.0 January 2004 http://www.apache.org/licenses/
+
+For a copy of the Apache License 2.0 text, see the LICENSE file.
+For the full text of other licenses (MIT, BSD, SIL OFL), refer to each
+dependency's own distribution or its published license.
+-----------------------------------------------------------------------------

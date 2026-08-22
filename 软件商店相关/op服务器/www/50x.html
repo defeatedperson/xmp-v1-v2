@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>服务异常 - 星梦面板</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:#020617;color:#e5e7eb;display:flex;align-items:center;justify-content:center;padding:24px}
+.container{max-width:640px;width:100%;text-align:center;background:radial-gradient(circle at top,#0f172a 0,#020617 55%,#000 100%);border-radius:16px;padding:40px 28px;border:1px solid rgba(148,163,184,0.3);box-shadow:0 20px 40px rgba(15,23,42,0.8)}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(15,23,42,0.9);border:1px solid rgba(37,99,235,0.6);color:#93c5fd;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px}
+.badge-dot{width:8px;height:8px;border-radius:999px;background:#38bdf8;box-shadow:0 0 12px rgba(56,189,248,0.9)}
+.badge-text{font-weight:600}
+.code{font-weight:700;color:#60a5fa}
+.title{font-size:28px;line-height:1.3;font-weight:700;margin-bottom:12px;color:#e5e7eb}
+.subtitle{font-size:14px;line-height:1.7;color:#9ca3af;margin-bottom:26px}
+.subtitle strong{color:#e5e7eb;font-weight:600}
+.highlight{color:#38bdf8;font-weight:600}
+.panel{margin-top:10px;margin-bottom:24px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(8,47,73,0.95));border:1px solid rgba(37,99,235,0.65);display:flex;flex-direction:column;gap:6px}
+.panel-main{font-size:13px;color:#e5e7eb}
+.panel-sub{font-size:12px;color:#9ca3af}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:20px}
+.brand{font-size:11px;color:#778190}
+.brand strong{color:#e5e7eb;font-weight:600}
+.brand a{color:#60a5fa;text-decoration:none}
+.brand a:hover{text-decoration:underline}
+@media (max-width:480px){
+.container{padding:28px 20px}
+.title{font-size:22px}
+.subtitle{font-size:13px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="badge">
+<div class="badge-dot"></div>
+<span class="badge-text">服务异常</span>
+<span class="code">50x</span>
+</div>
+<h1 class="title">出现错误，暂时无法访问</h1>
+<p class="subtitle">遇到服务器内部问题，请稍后再试。</p>
+<div class="panel">
+<div class="panel-main">如果这是您的站点，请检查后端服务、应用日志或网关配置。</div>
+<div class="panel-sub">该错误通常由应用程序崩溃、上游服务不可用或网关超时导致。</div>
+</div>
+<div class="actions">
+<p class="brand">由 <strong>星梦面板</strong> 驱动 · 官网 <a href="https://xmpanel.cn" target="_blank" rel="noreferrer">xmpanel.cn</a></p>
+</div>
+</body>
+</html>
+

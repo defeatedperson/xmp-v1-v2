@@ -1,0 +1,15 @@
+{
+  "certs": [
+    {
+      "name": "example-com",
+      "domains": [
+        "example.com",
+        "www.example.com"
+      ],
+      "email": "admin@example.com",
+      "created_at": "2025-01-01T00:00:00Z",
+      "remark": "示例证书",
+      "status": "issue_success"
+    }
+  ]
+}

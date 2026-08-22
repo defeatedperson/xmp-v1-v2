@@ -1,0 +1,5 @@
+# 添加执行权限
+chmod +x firewall-manager.sh
+
+# 运行脚本（需要root权限）
+sudo ./firewall-manager.sh
