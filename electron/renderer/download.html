@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下载管理</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #e5eaf3;
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background-color: #141414;
+            border-bottom: 1px solid #363637;
+            -webkit-app-region: drag;
+        }
+
+        .title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .actions {
+            -webkit-app-region: no-drag;
+        }
+
+        .btn-clear {
+            background: transparent;
+            border: 1px solid #4c4d4f;
+            color: #a3a6ad;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-clear:hover {
+            border-color: #58585b;
+            color: #e5eaf3;
+        }
+
+        .download-list {
+            height: calc(100vh - 46px);
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .download-item {
+            background-color: #1d1e1f;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        .file-status {
+            font-size: 12px;
+            color: #a3a6ad;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background-color: #141414;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #409eff;
+            transition: width 0.2s linear;
+        }
+
+        .progress-fill.completed {
+            background-color: #67c23a;
+        }
+
+        .progress-fill.failed {
+            background-color: #f56c6c;
+        }
+
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #a3a6ad;
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-link {
+            color: #409eff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #8d9095;
+            font-size: 13px;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4c4d4f;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span class="title">下载管理</span>
+        <div class="actions">
+            <button class="btn-clear" id="clearBtn">清空已完成</button>
+        </div>
+    </div>
+    <div class="download-list" id="downloadList">
+        <div class="empty-state">暂无下载任务</div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        
+        const downloadList = document.getElementById('downloadList');
+        const clearBtn = document.getElementById('clearBtn');
+        const items = new Map(); // url -> element
+
+        // 格式化字节大小
+        function formatBytes(bytes, decimals = 2) {
+            if (!+bytes) return '0 B';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+        }
+
+        function createItemElement(data) {
+            const div = document.createElement('div');
+            div.className = 'download-item';
+            div.id = `item-${data.startTime}`; // 使用开始时间作为唯一ID
+            
+            div.innerHTML = `
+                <div class="item-header">
+                    <span class="file-name" title="${data.filename}">${data.filename}</span>
+                    <span class="file-status">等待中...</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="item-footer">
+                    <span class="speed-info">--/s</span>
+                    <div class="actions-row">
+                        <span class="action-link btn-cancel" style="color: #f56c6c;">取消</span>
+                        <span class="action-link btn-open" style="display: none">打开文件</span>
+                        <span class="action-link btn-folder" style="display: none">打开文件夹</span>
+                    </div>
+                </div>
+            `;
+            
+            // 绑定事件
+            const btnCancel = div.querySelector('.btn-cancel');
+            const btnOpen = div.querySelector('.btn-open');
+            const btnFolder = div.querySelector('.btn-folder');
+            
+            btnCancel.onclick = () => ipcRenderer.send('cancel-download', data.startTime);
+            btnOpen.onclick = () => ipcRenderer.send('open-file', data.savePath);
+            btnFolder.onclick = () => ipcRenderer.send('show-in-folder', data.savePath);
+
+            return div;
+        }
+
+        ipcRenderer.on('download-progress', (event, data) => {
+            const { filename, state, receivedBytes, totalBytes, startTime, savePath } = data;
+            
+            // 如果是第一个任务，清空 empty state
+            if (downloadList.querySelector('.empty-state')) {
+                downloadList.innerHTML = '';
+            }
+
+            let itemEl = items.get(startTime);
+            
+            if (!itemEl) {
+                itemEl = createItemElement(data);
+                downloadList.insertBefore(itemEl, downloadList.firstChild);
+                items.set(startTime, itemEl);
+            }
+
+            // 更新状态
+            const statusEl = itemEl.querySelector('.file-status');
+            const fillEl = itemEl.querySelector('.progress-fill');
+            const speedEl = itemEl.querySelector('.speed-info');
+            const btnCancel = itemEl.querySelector('.btn-cancel');
+            const btnOpen = itemEl.querySelector('.btn-open');
+            const btnFolder = itemEl.querySelector('.btn-folder');
+
+            // 计算进度
+            const percent = totalBytes > 0 ? (receivedBytes / totalBytes) * 100 : 0;
+            fillEl.style.width = `${percent}%`;
+
+            // 计算大小显示
+            const sizeText = `${formatBytes(receivedBytes)}${totalBytes > 0 ? ' / ' + formatBytes(totalBytes) : ''}`;
+            
+            if (state === 'progressing') {
+                statusEl.textContent = '下载中';
+                statusEl.style.color = '#409eff';
+                speedEl.textContent = sizeText;
+                fillEl.className = 'progress-fill';
+                btnCancel.style.display = 'inline';
+                btnOpen.style.display = 'none';
+                btnFolder.style.display = 'none';
+            } else if (state === 'completed') {
+                statusEl.textContent = '已完成';
+                statusEl.style.color = '#67c23a';
+                fillEl.className = 'progress-fill completed';
+                fillEl.style.width = '100%';
+                speedEl.textContent = formatBytes(totalBytes || receivedBytes);
+                
+                // 显示操作按钮
+                btnCancel.style.display = 'none';
+                btnOpen.style.display = 'inline';
+                btnFolder.style.display = 'inline';
+                
+                // 关键修复：更新按钮点击事件中的 savePath
+                // 因为 createItemElement 时的 savePath 可能是空的
+                btnOpen.onclick = () => ipcRenderer.send('open-file', savePath);
+                btnFolder.onclick = () => ipcRenderer.send('show-in-folder', savePath);
+                
+                // 更新item数据里的savePath，确保正确
+                itemEl.dataset.savePath = savePath;
+            } else if (state === 'interrupted' || state === 'cancelled') {
+                statusEl.textContent = '已取消';
+                statusEl.style.color = '#f56c6c';
+                fillEl.className = 'progress-fill failed';
+                btnCancel.style.display = 'none';
+                btnOpen.style.display = 'none';
+                btnFolder.style.display = 'none';
+            } else {
+                statusEl.textContent = '失败';
+                statusEl.style.color = '#f56c6c';
+                fillEl.className = 'progress-fill failed';
+                btnCancel.style.display = 'none';
+            }
+        });
+
+        clearBtn.onclick = () => {
+            // 只保留未完成的项目
+            const allItems = Array.from(items.entries());
+            allItems.forEach(([key, el]) => {
+                const status = el.querySelector('.file-status').textContent;
+                if (status === '已完成' || status === '已取消' || status === '失败') {
+                    el.remove();
+                    items.delete(key);
+                }
+            });
+
+            if (items.size === 0) {
+                downloadList.innerHTML = '<div class="empty-state">暂无下载任务</div>';
+            }
+        };
+    </script>
+</body>
+</html>

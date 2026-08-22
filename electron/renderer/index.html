@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMP 桌面启动器 v2.0.1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="tab-bar">
+        <div class="tabs" id="tabs"></div>
+    </div>
+    <div class="global-divider"></div>
+
+    <div class="container" id="settingsPanel">
+        <div class="home-actions">
+            <div class="status-area">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">未启动</span>
+            </div>
+            <div class="actions">
+                <button id="btnStart" class="btn btn-primary">启动服务</button>
+                <button id="btnStop" class="btn btn-danger" style="display: none;">停止服务</button>
+            </div>
+        </div>
+        <div class="cards-grid">
+            <div class="card">
+                <h2>环境配置</h2>
+                <div class="form-group">
+                    <label>端口 (PORT)</label>
+                    <input type="text" id="inputPort" placeholder="5008">
+                </div>
+                <button id="btnSaveEnv" class="btn btn-secondary">保存配置</button>
+            </div>
+
+            <div class="card">
+                <h2>账号重置</h2>
+                <div class="form-group">
+                    <label>新用户名</label>
+                    <input type="text" id="inputUser" placeholder="留空不修改">
+                </div>
+                <div class="form-group">
+                    <label>新密码</label>
+                    <input type="password" id="inputPass" placeholder="留空不修改">
+                </div>
+                <button id="btnResetPass" class="btn btn-warning">重置账号密码</button>
+            </div>
+        </div>
+
+        
+
+        <div class="console-output">
+            <h3>运行日志</h3>
+            <pre id="logOutput"></pre>
+        </div>
+        <div class="action-area">
+            <!-- 启动按钮已移至顶部菜单 -->
+            <div id="errorMsg" class="error-msg"></div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
