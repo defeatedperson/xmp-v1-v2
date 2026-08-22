@@ -1,0 +1,6 @@
+{
+  "domain": "static.example.com",
+  "origin": "http://127.0.0.1:9000",
+  "timeout": 60,
+  "cache_ttl": 300
+}

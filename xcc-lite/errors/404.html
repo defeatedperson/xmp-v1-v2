@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>404 Not Found</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .error-container {
+      max-width: 500px;
+      padding: 40px;
+      background-color: #2d2d2d;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid #3d3d3d;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      color: #ff6b6b;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    .error-message {
+      font-size: 1.1rem;
+      color: #cccccc;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .driver-info {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #3d3d3d;
+      font-size: 0.9rem;
+      color: #999999;
+    }
+    
+    .driver-info a {
+      color: #4ecdc4;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .driver-info a:hover {
+      color: #45b7aa;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <h1>404 未找到域名</h1>
+    <p class="error-message">请求的域名未配置，请检查配置文件。</p>
+    <div class="driver-info">
+      <p>驱动：XCC-Lite（XMP定制版）</p>
+      <p>官网：<a href="https://xmpanel.cn" target="_blank">xmpanel.cn</a></p>
+    </div>
+  </div>
+</body>
+</html>

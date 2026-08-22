@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>人机验证</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 520px;
+      width: 100%;
+      padding: 32px;
+      background-color: #2d2d2d;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      border: 1px solid #3d3d3d;
+    }
+    h1 {
+      font-size: 2.4rem;
+      color: #4ecdc4;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    .desc { font-size: 1rem; color: #cccccc; line-height: 1.7; margin-bottom: 20px; }
+    .expr {
+      background: #1f1f1f;
+      border: 1px solid #3d3d3d;
+      color: #f0f0f0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      word-break: break-all;
+    }
+    .calc {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .display {
+      grid-column: span 4;
+      background: #1f1f1f;
+      border: 1px solid #3d3d3d;
+      color: #f0f0f0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 1.2rem;
+      text-align: center;
+      min-height: 46px;
+    }
+    /* 隐藏数字输入框的上下箭头 */
+    .display::-webkit-outer-spin-button,
+    .display::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .display[type=number] {
+      -moz-appearance: textfield;
+    }
+    .btn {
+      padding: 12px 0;
+      border-radius: 8px;
+      border: 1px solid #3d3d3d;
+      background: #3a3a3a;
+      color: #f0f0f0;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+    .btn:active { background: #444; }
+    .btn.op { background: #4c4c4c; }
+    .btn.primary { background: #4ecdc4; color: #1a1a1a; border-color: #4ecdc4; font-weight: 700; }
+    .ok {
+      margin-top: 18px;
+      width: 100%;
+      padding: 12px 0;
+      border-radius: 8px;
+      border: 1px solid #4ecdc4;
+      background: #4ecdc4;
+      color: #1a1a1a;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .driver { margin-top: 22px; padding-top: 16px; border-top: 1px solid #3d3d3d; font-size: .9rem; color: #999; }
+    .driver a { color: #4ecdc4; text-decoration: none; }
+    .driver a:hover { color: #45b7aa; text-decoration: underline; }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline' 'self'; script-src 'unsafe-inline' 'self'">
+</head>
+<body>
+  <div class="container">
+    <h1>人机验证</h1>
+    <p class="desc">请完成一次简单计算以继续访问。</p>
+    <div id="v" class="expr"></div>
+    <div class="calc">
+      <input id="ans" class="display" type="text" inputmode="numeric" placeholder="在此输入计算结果（整数）" style="-moz-appearance: textfield; -webkit-appearance: none; appearance: none;" />
+    </div>
+    <button id="ok" class="ok">提交验证</button>
+    <div class="driver">
+      <p>驱动：XCC-Lite（XMP定制版）</p>
+      <p>官网：<a href="https://xmpanel.cn" target="_blank">xmpanel.cn</a></p>
+    </div>
+  </div>
+  <script>
+    var ready = 0;
+    var expr = '';
+    var token = '';
+    function setMove(){ if(!ready){ ready=1; document.cookie='__xcc_cc_move=1; Max-Age=600; Path=/; SameSite=Lax'; } }
+    document.addEventListener('mousemove', setMove);
+    document.addEventListener('keydown', setMove);
+    document.addEventListener('scroll', setMove);
+    function init(){
+      var u = new URLSearchParams(window.location.search).get('u') || '/';
+      fetch('/cc/init?u=' + encodeURIComponent(u), { method: 'POST' })
+        .then(function(r){ return r.json(); })
+        .then(function(j){ expr = j.expr; token = j.token; var view = String(expr).replace(/\*/g, '×'); document.getElementById('v').innerText = view; });
+    }
+    function verify(){
+      var aRaw = document.getElementById('ans').value.trim();
+      if(aRaw === ''){ alert('请输入计算结果'); return; }
+      var n = parseInt(aRaw, 10);
+      if(!isFinite(n)){ alert('请输入整数结果'); return; }
+      var a = String(n);
+      fetch('/cc/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: token, answer: a }) })
+        .then(function(r){ return r.json(); })
+        .then(function(j){ if(j && j.ok && j.redirect){ location.href = j.redirect; } else { location.reload(); } });
+    }
+    init();
+    document.getElementById('ok').onclick = verify;
+  </script>
+</body>
+</html>

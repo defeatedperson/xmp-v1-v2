@@ -1,0 +1,1046 @@
+{
+  "version": "1.0",
+  "types": [
+    {
+      "id": "1",
+      "name": "建站工具"
+    },
+    {
+      "id": "2",
+      "name": "运行环境"
+    },
+    {
+      "id": "3",
+      "name": "网盘存储"
+    },
+    {
+      "id": "4",
+      "name": "运维管理"
+    },
+    {
+      "id": "5",
+      "name": "多媒体"
+    },
+    {
+      "id": "6",
+      "name": "实用工具"
+    },
+    {
+      "id": "7",
+      "name": "AI助手"
+    }
+  ],
+  "apps": [
+    {
+      "name": "Bitwarden",
+      "description": "开源密码管理服务",
+      "typeId": "6",
+      "versions": [
+        {
+          "version": "1.35.2",
+          "image": "vaultwarden/server:1.35.2-alpine",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8200",
+              "container": "80"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/bitwarden/data",
+              "container": "/data"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "青龙",
+      "description": "定时任务管理平台",
+      "typeId": "6",
+      "versions": [
+        {
+          "version": "2.20.1",
+          "image": "whyour/qinglong:2.20.1-debian",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "5700",
+              "container": "5700"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/qinglong/data",
+              "container": "/ql/data"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "Stirling-PDF",
+      "description": "强大的本地托管基于 Web 的 PDF 操作工具",
+      "typeId": "6",
+      "versions": [
+        {
+          "version": "2.3.0",
+          "image": "frooodle/s-pdf:2.3.0",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8280",
+              "container": "8080"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/stirling-pdf/trainingData",
+              "container": "/usr/share/tesseract-ocr/5/tessdata"
+            },
+            {
+              "host": "/stirling-pdf/extraConfigs",
+              "container": "/configs"
+            }
+          ],
+          "env": [
+            { "name": "DOCKER_ENABLE_SECURITY", "value": "false" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Home Assistant",
+      "description": "以本地控制和隐私为先的开源家居自动化",
+      "typeId": "6",
+      "versions": [
+        {
+          "version": "2026.1.1",
+          "image": "homeassistant/home-assistant:2026.1.1",
+          "network": "host",
+          "portclock": false,
+          "ports": [],
+          "volumes": [
+            {
+              "host": "/srv/homeassistant/data",
+              "container": "/config"
+            },
+            {
+              "host": "/run/dbus",
+              "container": "/run/dbus"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "Jellyfin",
+      "description": "免费的开源媒体系统",
+      "typeId": "5",
+      "versions": [
+        {
+          "version": "10.11.5",
+          "image": "jellyfin/jellyfin:10.11.5",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8096",
+              "container": "8096"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/jellyfin/config",
+              "container": "/config"
+            },
+            {
+              "host": "/srv/jellyfin/cache",
+              "container": "/cache"
+            },
+            {
+              "host": "/media",
+              "container": "/media"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "MySQL",
+      "description": "关系型数据库 MySQL 8.4",
+      "typeId": "2",
+      "versions": [
+        {
+          "version": "8.4.7",
+          "image": "mysql:8.4.7",
+          "network": "bridge",
+          "command": "",
+          "containerName": "mysql8",
+          "portclock": true,
+          "ports": [
+            {
+              "host": "3306",
+              "container": "3306"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/mysql/data",
+              "container": "/var/lib/mysql"
+            },
+            {
+              "host": "/srv/mysql/conf.d",
+              "container": "/etc/mysql/conf.d"
+            },
+            {
+              "host": "/srv/mysql/logs",
+              "container": "/var/log/mysql"
+            },
+            {
+              "host": "/backup",
+              "container": "/backup"
+            }
+          ],
+          "env": [
+            { "name": "MYSQL_ROOT_PASSWORD", "value": "your-strong-password" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        },
+        {
+          "version": "8.4.8",
+          "image": "mysql:8.4.8",
+          "network": "bridge",
+          "command": "",
+          "containerName": "mysql8",
+          "portclock": true,
+          "ports": [
+            {
+              "host": "3306",
+              "container": "3306"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/mysql/data",
+              "container": "/var/lib/mysql"
+            },
+            {
+              "host": "/srv/mysql/conf.d",
+              "container": "/etc/mysql/conf.d"
+            },
+            {
+              "host": "/srv/mysql/logs",
+              "container": "/var/log/mysql"
+            },
+            {
+              "host": "/backup",
+              "container": "/backup"
+            }
+          ],
+          "env": [
+            { "name": "MYSQL_ROOT_PASSWORD", "value": "your-strong-password" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Halo Community",
+      "description": "强大易用的开源建站工具（社区版）",
+      "typeId": "1",
+      "versions": [
+        {
+          "version": "2.22.10",
+          "image": "halohub/halo:2.22.10",
+          "network": "bridge",
+          "command": "",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8090",
+              "container": "8090"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/halo/data",
+              "container": "/root/.halo2"
+            }
+          ],
+          "env": [
+            { "name": "JVM_OPTS", "value": "-Xmx256m -Xms256m" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ],
+          "setup": {
+            "database": {
+              "label": "数据库配置",
+              "required": true,
+              "env": {
+                "url": "SPRING_R2DBC_URL",
+                "username": "SPRING_R2DBC_USERNAME",
+                "password": "SPRING_R2DBC_PASSWORD"
+              },
+              "urlTemplate": "r2dbc:pool:mysql://mysql8:3306/{db}",
+              "platformEnv": { "name": "SPRING_SQL_INIT_PLATFORM", "value": "mysql" }
+            },
+            "external_url": {
+              "label": "外部访问地址",
+              "description": "请填写包含协议的完整域名，例如 http://www.example.com",
+              "env": "HALO_EXTERNAL_URL",
+              "default": "http://localhost:8090",
+              "required": true
+            }
+          }
+        },
+        {
+          "version": "2.22.12",
+          "image": "halohub/halo:2.22.12",
+          "network": "bridge",
+          "command": "",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8090",
+              "container": "8090"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/halo/data",
+              "container": "/root/.halo2"
+            }
+          ],
+          "env": [
+            { "name": "JVM_OPTS", "value": "-Xmx256m -Xms256m" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ],
+          "setup": {
+            "database": {
+              "label": "数据库配置",
+              "required": true,
+              "env": {
+                "url": "SPRING_R2DBC_URL",
+                "username": "SPRING_R2DBC_USERNAME",
+                "password": "SPRING_R2DBC_PASSWORD"
+              },
+              "urlTemplate": "r2dbc:pool:mysql://mysql8:3306/{db}",
+              "platformEnv": { "name": "SPRING_SQL_INIT_PLATFORM", "value": "mysql" }
+            },
+            "external_url": {
+              "label": "外部访问地址",
+              "description": "请填写包含协议的完整域名，例如 http://www.example.com",
+              "env": "HALO_EXTERNAL_URL",
+              "default": "http://localhost:8090",
+              "required": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Halo Pro",
+      "description": "强大易用的开源建站工具（专业版）",
+      "typeId": "1",
+      "versions": [
+        {
+          "version": "2.22.10",
+          "image": "halohub/halo-pro:2.22.10",
+          "network": "bridge",
+          "command": "",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8090",
+              "container": "8090"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/halo-pro/data",
+              "container": "/root/.halo2"
+            }
+          ],
+          "env": [
+            { "name": "JVM_OPTS", "value": "-Xmx512m -Xms512m" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ],
+          "setup": {
+            "database": {
+              "label": "数据库配置",
+              "required": true,
+              "env": {
+                "url": "SPRING_R2DBC_URL",
+                "username": "SPRING_R2DBC_USERNAME",
+                "password": "SPRING_R2DBC_PASSWORD"
+              },
+              "urlTemplate": "r2dbc:pool:mysql://mysql8:3306/{db}",
+              "platformEnv": { "name": "SPRING_SQL_INIT_PLATFORM", "value": "mysql" }
+            },
+            "external_url": {
+              "label": "外部访问地址",
+              "description": "请填写包含协议的完整域名，例如 http://www.example.com",
+              "env": "HALO_EXTERNAL_URL",
+              "default": "http://localhost:8090",
+              "required": true
+            }
+          }
+        },
+        {
+          "version": "2.22.12",
+          "image": "halohub/halo-pro:2.22.12",
+          "network": "bridge",
+          "command": "",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8090",
+              "container": "8090"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/halo-pro/data",
+              "container": "/root/.halo2"
+            }
+          ],
+          "env": [
+            { "name": "JVM_OPTS", "value": "-Xmx512m -Xms512m" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ],
+          "setup": {
+            "database": {
+              "label": "数据库配置",
+              "required": true,
+              "env": {
+                "url": "SPRING_R2DBC_URL",
+                "username": "SPRING_R2DBC_USERNAME",
+                "password": "SPRING_R2DBC_PASSWORD"
+              },
+              "urlTemplate": "r2dbc:pool:mysql://mysql8:3306/{db}",
+              "platformEnv": { "name": "SPRING_SQL_INIT_PLATFORM", "value": "mysql" }
+            },
+            "external_url": {
+              "label": "外部访问地址",
+              "description": "请填写包含协议的完整域名，例如 http://www.example.com",
+              "env": "HALO_EXTERNAL_URL",
+              "default": "http://localhost:8090",
+              "required": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WordPress",
+      "description": "全球最流行的开源博客和内容管理系统",
+      "typeId": "1",
+      "versions": [
+        {
+          "version": "6.9.0",
+          "image": "defeatedperson/wordpress:v6.9.0",
+          "network": "bridge",
+          "command": "",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8080",
+              "container": "80"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/wordpress/data",
+              "container": "/var/www/html"
+            }
+          ],
+          "env": [
+            { "name": "WORDPRESS_DB_HOST", "value": "mysql8:3306" },
+            { "name": "WORDPRESS_DEBUG", "value": "0" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ],
+          "setup": {
+            "database": {
+              "label": "数据库配置",
+              "required": true,
+              "env": {
+                "url": "WORDPRESS_DB_NAME",
+                "username": "WORDPRESS_DB_USER",
+                "password": "WORDPRESS_DB_PASSWORD"
+              },
+              "urlTemplate": "{db}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Typecho",
+      "description": "极简、轻量的开源博客系统",
+      "typeId": "1",
+      "versions": [
+        {
+          "version": "1.2.1",
+          "image": "joyqi/typecho:1.2.1-php8.0-apache",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8880",
+              "container": "80"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/typecho/data",
+              "container": "/app"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "OpenList",
+      "description": "基于 Alist 的开源网盘文件列表程序",
+      "typeId": "3",
+      "versions": [
+        {
+          "version": "latest",
+          "image": "openlistteam/openlist:latest",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "5244",
+              "container": "5244"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/openlist/data",
+              "container": "/opt/openlist/data"
+            }
+          ],
+          "env": [
+            { "name": "UMASK", "value": "022" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Redis",
+      "description": "内存数据库 Redis",
+      "typeId": "2",
+      "versions": [
+        {
+          "version": "8.4.0",
+          "image": "redis:8.4.0",
+          "network": "bridge",
+          "command": "redis-server /usr/local/etc/redis/redis.conf",
+          "containerName": "redis",
+          "portclock": true,
+          "ports": [
+            {
+              "host": "6379",
+              "container": "6379"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/redis/data",
+              "container": "/data"
+            },
+            {
+              "host": "/srv/redis/conf/redis.conf",
+              "container": "/usr/local/etc/redis/redis.conf",
+              "type": "file"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        },
+        {
+          "version": "8.6.1",
+          "image": "redis:8.6.1",
+          "network": "bridge",
+          "command": "redis-server /usr/local/etc/redis/redis.conf",
+          "containerName": "redis",
+          "portclock": true,
+          "ports": [
+            {
+              "host": "6379",
+              "container": "6379"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/redis/data",
+              "container": "/data"
+            },
+            {
+              "host": "/srv/redis/conf/redis.conf",
+              "container": "/usr/local/etc/redis/redis.conf",
+              "type": "file"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "phpMyAdmin",
+      "description": "基于 Web 的 MySQL 数据库管理工具",
+      "typeId": "2",
+      "versions": [
+        {
+          "version": "5.2.3",
+          "image": "phpmyadmin:5.2.3",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8888",
+              "container": "80"
+            }
+          ],
+          "volumes": [],
+          "env": [
+            { "name": "PMA_HOST", "value": "mysql8" },
+            { "name": "PMA_PORT", "value": "3306" },
+            { "name": "UPLOAD_LIMIT", "value": "128M" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OpenResty",
+      "description": "OpenResty Web 服务器",
+      "typeId": "2",
+      "versions": [
+        {
+          "version": "1.0.4",
+          "image": "defeatedperson/openresty:v1.0.4",
+          "network": "host",
+          "command": "",
+          "containerName": "openresty",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "/acme",
+              "container": "/www/acme-data"
+            },
+            {
+              "host": "/conf",
+              "container": "/www/conf"
+            },
+            {
+              "host": "/certs",
+              "container": "/www/certs"
+            },
+            {
+              "host": "/web_log",
+              "container": "/www/web_log"
+            },
+            {
+              "host": "/website",
+              "container": "/www/website"
+            },
+            {
+              "host": "/web-rules",
+              "container": "/www/web-rules"
+            },
+            {
+              "host": "/cache",
+              "container": "/www/cache"
+            }
+          ],
+          "env": []
+        },
+        {
+          "version": "1.0.5",
+          "image": "defeatedperson/openresty:v1.0.5",
+          "network": "host",
+          "command": "",
+          "containerName": "openresty",
+          "ports": [],
+          "volumes": [
+            {
+              "host": "/acme",
+              "container": "/www/acme-data"
+            },
+            {
+              "host": "/conf",
+              "container": "/www/conf"
+            },
+            {
+              "host": "/certs",
+              "container": "/www/certs"
+            },
+            {
+              "host": "/web_log",
+              "container": "/www/web_log"
+            },
+            {
+              "host": "/website",
+              "container": "/www/website"
+            },
+            {
+              "host": "/web-rules",
+              "container": "/www/web-rules"
+            },
+            {
+              "host": "/cache",
+              "container": "/www/cache"
+            }
+          ],
+          "env": []
+        }
+      ]
+    },
+    {
+      "name": "ZFile",
+      "description": "基于 Java 的在线网盘程序（开源版）",
+      "typeId": "3",
+      "versions": [
+        {
+          "version": "latest",
+          "image": "zhaojun1998/zfile:latest",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8080",
+              "container": "8080"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/zfile/db",
+              "container": "/root/.zfile-v4/db"
+            },
+            {
+              "host": "/srv/zfile/logs",
+              "container": "/root/.zfile-v4/logs"
+            },
+            {
+              "host": "/srv/zfile/file",
+              "container": "/data/file"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "Uptime Kuma",
+      "description": "极简的自托管监控工具",
+      "typeId": "4",
+      "versions": [
+        {
+          "version": "2.0.2",
+          "image": "louislam/uptime-kuma:2.0.2",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "3001",
+              "container": "3001"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/uptime-kuma/data",
+              "container": "/app/data"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "星梦监控",
+      "description": "资源监控/可用性探测/自动DNS切换/监控告警",
+      "typeId": "4",
+      "versions": [
+        {
+          "version": "v2.0.0",
+          "image": "defeatedperson/xmm-api:v2.0.0",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "6899",
+              "container": "6899"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/opt/xmm",
+              "container": "/app/data"
+            }
+          ],
+          "env": [
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ZFile Pro",
+      "description": "基于 Java 的在线网盘程序（捐赠版）",
+      "typeId": "3",
+      "versions": [
+        {
+          "version": "latest",
+          "image": "zhaojun1998/zfile-pro:latest",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8080",
+              "container": "8080"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/srv/zfile-pro/db",
+              "container": "/root/.zfile-v4/db"
+            },
+            {
+              "host": "/srv/zfile-pro/logs",
+              "container": "/root/.zfile-v4/logs"
+            },
+            {
+              "host": "/srv/zfile-pro/file",
+              "container": "/data/file"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "FileCodeBox",
+      "description": "文件快递柜-匿名口令分享文本，文件，像拿快递一样取文件",
+      "typeId": "3",
+      "versions": [
+        {
+          "version": "beta",
+          "image": "lanol/filecodebox:beta",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "12345",
+              "container": "12345"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/filecodebox/data",
+              "container": "/app/data"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "KodBox",
+      "description": "可道云推出的企业级私有云存储解决方案",
+      "typeId": "3",
+      "versions": [
+        {
+          "version": "1.4505",
+          "image": "kodcloud/kodbox:v1.4505",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8180",
+              "container": "80"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/kodbox/site",
+              "container": "/var/www/html"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "Lsky Pro",
+      "description": "用于在线上传、管理图片的图床程序",
+      "typeId": "5",
+      "versions": [
+        {
+          "version": "latest",
+          "image": "halcyonazure/lsky-pro-docker:latest",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8089",
+              "container": "8089"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/lskypro/data",
+              "container": "/var/www/html"
+            }
+          ],
+          "env": [
+            { "name": "WEB_PORT", "value": "8089" },
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Discuz!",
+      "description": "开源社交建站系统",
+      "typeId": "1",
+      "versions": [
+        {
+          "version": "3.4",
+          "image": "tencentci/discuz:v3.4",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "8088",
+              "container": "80"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/discuz/data",
+              "container": "/var/www/html"
+            }
+          ],
+          "env": [{ "name": "TZ", "value": "Asia/Shanghai" }]
+        }
+      ]
+    },
+    {
+      "name": "Firefox",
+      "description": "基于浏览器的远程桌面 Firefox",
+      "typeId": "6",
+      "versions": [
+        {
+          "version": "latest",
+          "image": "jlesage/firefox:latest",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "5800",
+              "container": "5800"
+            },
+            {
+              "host": "5900",
+              "container": "5900"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/data/firefox/config",
+              "container": "/config"
+            }
+          ],
+          "env": [
+            { "name": "TZ", "value": "Asia/Hong_Kong" },
+            { "name": "DISPLAY_WIDTH", "value": "1920" },
+            { "name": "DISPLAY_HEIGHT", "value": "1080" },
+            { "name": "KEEP_APP_RUNNING", "value": "1" },
+            { "name": "ENABLE_CJK_FONT", "value": "1" },
+            { "name": "VNC_PASSWORD", "value": "admin" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AstrBot",
+      "description": "一个开源的一站式 Agentic 个人和群聊助手",
+      "typeId": "7",
+      "versions": [
+        {
+          "version": "latest",
+          "image": "soulter/astrbot:latest",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "6185",
+              "container": "6185"
+            },
+            {
+              "host": "6199",
+              "container": "6199"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/astrbot/data",
+              "container": "/AstrBot/data"
+            }
+          ],
+          "env": [
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TDengine",
+      "description": "开源高性能时序数据库。默认用户: root，默认密码: taosdata，客户端连接端口: 6030，RESTful API 端口: 6041",
+      "typeId": "2",
+      "versions": [
+        {
+          "version": "3.4.1.0",
+          "image": "tdengine/tsdb:3.4.1.0",
+          "network": "bridge",
+          "portclock": false,
+          "ports": [
+            {
+              "host": "6030",
+              "container": "6030"
+            },
+            {
+              "host": "6041",
+              "container": "6041"
+            }
+          ],
+          "volumes": [
+            {
+              "host": "/tdengine/data",
+              "container": "/var/lib/taos"
+            },
+            {
+              "host": "/tdengine/log",
+              "container": "/var/log/taos"
+            }
+          ],
+          "env": [
+            { "name": "TZ", "value": "Asia/Shanghai" }
+          ]
+        }
+      ]
+    }
+  ]
+}
